@@ -29,7 +29,7 @@ app.get('/webhook', (req, res) => {
             res.sendStatus(403);
         }
     }
-    res.status(200).send('OK');
+    res.status(200).send('Webhook Verify...');
 });
 
 app.post("/webhook", (req, res) => {
