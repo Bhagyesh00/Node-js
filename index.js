@@ -36,33 +36,32 @@ app.post("/webhook", (req, res) => {
     let body = req.body;
     console.log(body);
 
-    // if (body.object) {
-    //     if (body.entry && body.entry[0].changes && body.entry[0].changes[0].value.message && body.entry[0].changes[0].value.message[0]) {
-    //         let mob = body.entry[0].changes[0].value.metadata.phone_number_id;
-    //         let from = body.entry[0].changes[0].value.message[0].from;
-    //         let msg_body = body.entry[0].changes[0].value.message[0].text_body;
+    if (body.object) {
+        if (body.entry && body.entry[0].changes && body.entry[0].changes[0].value.messages && body.entry[0].changes[0].value.message[0]) {
+            let mob = body.entry[0].changes[0].value.metadata.phone_number_id;
+            let from = body.entry[0].changes[0].value.messages[0].from;
+            let msg_body = body.entry[0].changes[0].value.messages[0].text_body;
 
-    //         axios({
-    //             method: 'post',
-    //             url: 'https://graph.facebook.com/v17.0/' + mob + '/messages?access_token=' + token,
-    //             data: {
-    //                 messaging_product: 'whatsapp',
-    //                 to: from,
-    //                 text: {
-    //                     body: 'Thank You To Contact Wify Systems Private Limited...'
-    //                 }
-    //             },
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             }
-    //         });
+            axios({
+                method: 'post',
+                url: 'https://graph.facebook.com/v17.0/' + mob + '/messages?access_token=' + token,
+                data: {
+                    messaging_product: 'whatsapp',
+                    to: from,
+                    text: {
+                        body: 'Thank You To Contact Wify Systems Private Limited...'
+                    }
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
 
-    //         res.sendStatus(200);
-    //     } else {
-    //         res.sendStatus(404);
-    //     }
-    // }
-    res.status(200).end();
+            res.sendStatus(200);
+        } else {
+            res.sendStatus(404);
+        }
+    }
 });
 
 module.exports = app;
