@@ -28,9 +28,8 @@ app.get('/webhook', (req, res) => {
         } else {
             res.status(403);
         }
-    }else{
-        res.status(200);
     }
+    res.status(200);
     
 });
 
