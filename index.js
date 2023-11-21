@@ -62,6 +62,7 @@ app.post("/webhook", (req, res) => {
     //         res.sendStatus(404);
     //     }
     // }
+    res.status(200).end();
 });
 
 module.exports = app;
