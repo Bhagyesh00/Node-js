@@ -28,7 +28,10 @@ app.get('/webhook', (req, res) => {
         } else {
             res.sendStatus(403);
         }
+    }else{
+        res.sendStatus(403);
     }
+    
 });
 
 app.post("/webhook", (req, res) => {
