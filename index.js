@@ -26,8 +26,9 @@ app.get('/webhook', (req, res) => {
         if (mode === 'subscribe' && token === myToken) {
             res.status(200).send(challenge);
         } else {
-            res.sendStatus(403);
+            res.status(403);
         }
+    }else{
     }
     
 });
