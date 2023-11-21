@@ -29,6 +29,7 @@ app.get('/webhook', (req, res) => {
             res.status(403);
         }
     }
+    res.status(200).send("Token Not Verify...");
 });
 
 app.post("/webhook", (req, res) => {
