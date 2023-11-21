@@ -17,23 +17,24 @@ app.get('/', (req, res) => {
     res.status(200).send('This is Home Page');
 });
 
-app.get('/webhook', (req, res) => {
-    let mode = req.query["hub.mode"];
-    let challenge = req.query["hub.challenge"];
-    let token = req.query["hub.verify_token"];
+// app.get('/webhook', (req, res) => {
+//     let mode = req.query["hub.mode"];
+//     let challenge = req.query["hub.challenge"];
+//     let token = req.query["hub.verify_token"];
 
-    if (mode && token) {
-        if (mode === 'subscribe' && token === myToken) {
-            res.status(200).send(challenge);
-        } else {
-            res.sendStatus(403);
-        }
-    }
-    res.status(200).send('Webhook Verify...');
-});
+//     if (mode && token) {
+//         if (mode === 'subscribe' && token === myToken) {
+//             res.status(200).send(challenge);
+//         } else {
+//             res.sendStatus(403);
+//         }
+//     }
+//     res.status(200).send('Webhook Verify...');
+// });
 
 app.post("/webhook", (req, res) => {
     let body = req.body;
+    console.log(body);
 
     if (body.object) {
         if (body.entry && body.entry[0].changes && body.entry[0].changes[0].value.message && body.entry[0].changes[0].value.message[0]) {
