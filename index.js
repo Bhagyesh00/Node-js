@@ -9,14 +9,6 @@ const app = express().use(bodyParser.json());
 const token = process.env.TOKEN;
 const myToken = process.env.MYTOKEN;
 
-app.listen(8000, () => {
-    console.log('I am in Home Page');
-});
-
-app.get('/', (req, res) => {
-    res.status(200).send('This is Home Page');
-});
-
 app.get('/webhook', (req, res) => {
     let mode = req.query["hub.mode"];
     let challenge = req.query["hub.challenge"];
@@ -67,6 +59,14 @@ app.post("/webhook", (req, res) => {
         }
     }
     res.status(200).end();
+});
+
+app.get('/', (req, res) => {
+    res.status(200).send(challenge);
+});
+
+app.listen(8000, () => {
+    console.log('I am in Home Page');
 });
 
 module.exports = app;
