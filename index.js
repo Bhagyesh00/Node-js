@@ -62,7 +62,7 @@ app.post("/webhook", (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.status(200).send(challenge);
+    res.status(200).send("Welcome");
 });
 
 app.listen(8000, () => {
