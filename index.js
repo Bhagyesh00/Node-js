@@ -8,7 +8,7 @@ require('dotenv').config();
 const app=express().use(body_parser.json());
 
 const token=process.env.TOKEN;
-const mytoken=process.env.MYTOKEN;//prasath_token
+const mytoken=process.env.MYTOKEN;
 
 app.listen(process.env.PORT,()=>{
     console.log("webhook is listening");
@@ -35,14 +35,13 @@ app.get("/webhook",(req,res)=>{
 
 });
 
-app.post("/webhook",(req,res)=>{ //i want some 
+app.post("/webhook", (req, res) => {
+    let body_param = req.body;
 
-    let body_param=req.body;
-
-    console.log(JSON.stringify(body_param,null,2));
+    console.log(JSON.stringify(body_param, null, 2));
 
     try {
-        if(body_param.object){
+        if (body_param.object) {
             console.log("inside body param");
             if (
                 body_param.entry &&
@@ -54,39 +53,43 @@ app.post("/webhook",(req,res)=>{ //i want some
                 let phon_no_id = body_param.entry[0].changes[0].value.metadata.phone_number_id;
                 let from = body_param.entry[0].changes[0].value.messages[0].from;
                 let msg_body = body_param.entry[0].changes[0].value.messages[0].text.body;
-            
+
                 console.log("phone number " + phon_no_id);
                 console.log("from " + from);
                 console.log("body param " + msg_body);
-            
+
                 axios({
-                method: "POST",
-                url:
-                    "https://graph.facebook.com/v17.0/" +
-                    phon_no_id +
-                    "/messages?access_token=" +
-                    token,
-                headers: {
+                    method: "POST",
+                    url:
+                        "https://graph.facebook.com/v17.0/" +
+                        phon_no_id +
+                        "/messages?access_token=" +
+                        token,
+                    headers: {
                         "Content-Type": "application/json",
                     },
-                data: {
-                    messaging_product: "whatsapp",
-                    to: from,
-                    text: {
-                    body: "Hi.. I'm Wify, your message is " + msg_body,
+                    data: {
+                        messaging_product: "whatsapp",
+                        to: from,
+                        text: {
+                            body: "Hi.. I'm Wify, your message is " + msg_body,
+                        },
                     },
-                },
                 })
-                .then(() => {
-                    res.status(200).send("Message Sent...");
-                });
+                    .then(() => {
+                        res.status(200).send("Message Sent...");
+                    })
+                    .catch((error) => {
+                        console.error("Error sending message:", error);
+                        res.status(500).send("Internal Server Error");
+                    });
             } else {
                 res.status(404).send("Error Occur...");
-            }          
+            }
         }
         res.status(200).send("Empty request...");
     } catch (error) {
-        console.error("Error sending message:", error);
+        console.error("Error:", error);
         res.status(500).send("Internal Server Error");
     }
 });
