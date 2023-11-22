@@ -53,6 +53,7 @@ app.post("/webhook", (req, res) => {
                 let phon_no_id = body_param.entry[0].changes[0].value.metadata.phone_number_id;
                 let from = body_param.entry[0].changes[0].value.messages[0].from;
                 let msg_body = body_param.entry[0].changes[0].value.messages[0].text.body;
+                let name = body_param.entry[0].changes[0].value.contacts[0].profile.name;
 
                 console.log("phone number " + phon_no_id);
                 console.log("from " + from);
@@ -72,7 +73,7 @@ app.post("/webhook", (req, res) => {
                         messaging_product: "whatsapp",
                         to: from,
                         text: {
-                            body: "Hi.. I'm Wify, your message is " + msg_body,
+                            body: 'Hello '+name+'\nWe will reach you as soon as possible... ',
                         },
                     },
                 })
