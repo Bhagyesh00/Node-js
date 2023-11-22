@@ -30,6 +30,7 @@ app.get("/webhook",(req,res)=>{
         }
 
     }
+    res.status(200).send('In Webhook')
 
 });
 
@@ -70,13 +71,13 @@ app.post("/webhook",(req,res)=>{ //i want some
 
                });
 
-               res.sendStatus(200);
+               res.status(200).send("Message Sent...");
             }else{
-                res.sendStatus(404);
+                res.status(404).send("Error Occur...");
             }
 
     }
-
+    res.status(200).send("Empty request...");
 });
 
 app.get("/",(req,res)=>{
