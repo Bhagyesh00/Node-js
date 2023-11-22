@@ -64,6 +64,9 @@ app.post("/webhook",(req,res)=>{ //i want some
                 phon_no_id +
                 "/messages?access_token=" +
                 token,
+              headers: {
+                    "Content-Type": "application/json",
+                  },
               data: {
                 messaging_product: "whatsapp",
                 to: from,
@@ -71,9 +74,6 @@ app.post("/webhook",(req,res)=>{ //i want some
                 text: {
                   body: "Hi.. I'm Wify, your message is " + msg_body,
                 },
-              },
-              headers: {
-                "Content-Type": "application/json",
               },
             })
               .then(() => {
