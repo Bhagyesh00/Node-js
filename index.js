@@ -30,7 +30,7 @@ app.get("/webhook",(req,res)=>{
         }
 
     }
-    res.status(200).send('In Webhook')
+    res.status(200);
 
 });
 
