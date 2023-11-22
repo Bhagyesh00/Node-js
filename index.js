@@ -70,7 +70,6 @@ app.post("/webhook",(req,res)=>{ //i want some
               data: {
                 messaging_product: "whatsapp",
                 to: from,
-                type:"text",
                 text: {
                   body: "Hi.. I'm Wify, your message is " + msg_body,
                 },
